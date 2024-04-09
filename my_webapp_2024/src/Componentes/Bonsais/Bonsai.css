@@ -1,0 +1,22 @@
+.quantity-btns {
+    display: flex;
+    align-items: center;
+}
+
+.quantity-btn {
+    width: 30px;
+    margin-right: 5px; /* Reducir el margen para evitar que los botones se desborden */
+}
+
+.product-quantity-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.product-quantity__count {
+    font-size: 1.5vw;
+    margin-left: 20px;
+    color: rgb(3, 70, 3);
+    font-family: Arial, sans-serif;
+}

@@ -34,18 +34,27 @@ function Bonsai(props) {
                         {props.bonsai.price} €
                     </p>
                 </Card.Text>
-                <div className="product-quantity">
-                    <Button
-                        variant="secondary"
-                        onClick={handleRemove}
-                        disabled={quantity === 0}
-                    >
-                        -
-                    </Button>
-                    <span className="product-quantity__count">{quantity}</span>
-                    <Button variant="secondary" onClick={handleAdd}>
-                        +
-                    </Button>
+                <div className="product-quantity-wrapper">
+                    <span className="product-quantity__count">{quantity} Unidades</span>
+                    <div className="quantity-btns">
+                        <Button
+                            variant="outline-success"
+                            size="sm" // Tamaño pequeño
+                            onClick={handleRemove}
+                            disabled={quantity === 0}
+                            className="quantity-btn"
+                        >
+                            -
+                        </Button>
+                        <Button
+                            variant="outline-success"
+                            size="sm" // Tamaño pequeño
+                            onClick={handleAdd}
+                            className="quantity-btn"
+                        >
+                            +
+                        </Button>
+                    </div>
                 </div>
             </Card.Body>
         </Card>
