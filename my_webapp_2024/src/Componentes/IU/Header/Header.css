@@ -1,0 +1,9 @@
+.custom-navbar {
+    background: linear-gradient(to right, #fff, #aa5200);
+}
+
+.navbar-toggle-black {
+    background-color: #fffefe00 !important; /* Fondo */
+    border-color: #000000 !important; /* Borde */
+    color: #000000 !important; /* Texto */
+  }  
