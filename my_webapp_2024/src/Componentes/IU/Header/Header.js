@@ -9,7 +9,7 @@ function Header() {
 
     return (
         <>
-            <Navbar key='false' expand='false' className="custom-navbar mb-3" >
+            <Navbar key='false' expand='false' className="mb-5 custom-navbar">
                 <Container fluid>
                     
                     {/* LOGO */}

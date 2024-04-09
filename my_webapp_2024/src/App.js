@@ -9,6 +9,7 @@ import Footer from './Componentes/IU/Footer/Footer';
 import bon from './Componentes/Bonsais/imgs/BON1.jpg';
 
 function App() {
+
   const [bonsais] = useState([
     {
       id: 1,

@@ -1,3 +1,7 @@
+.total-card {
+    background-color: #f8f9fa;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
 .quantity-btns {
     display: flex;
     align-items: center;
@@ -5,7 +9,7 @@
 
 .quantity-btn {
     width: 30px;
-    margin-right: 5px; /* Reducir el margen para evitar que los botones se desborden */
+    margin-right: 5px;
 }
 
 .product-quantity-wrapper {

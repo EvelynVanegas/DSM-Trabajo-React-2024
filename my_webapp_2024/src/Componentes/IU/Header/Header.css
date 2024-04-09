@@ -1,9 +1,10 @@
 .custom-navbar {
-    background: linear-gradient(to right, #fff, #aa5200);
+    background-color: #f07027be;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.548);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: black;
 }
-
-.navbar-toggle-black {
-    background-color: #ffffff !important; /* Fondo */
-    border-color: #000000 !important; /* Borde */
-    color: #000000 !important; /* Texto */
-  }  

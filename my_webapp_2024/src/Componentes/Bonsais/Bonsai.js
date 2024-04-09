@@ -18,7 +18,7 @@ function Bonsai(props) {
     };
 
     return (
-        <Card className="mb-2">
+        <Card className="mb-5 total-card" style={{ maxWidth: '280px' }}>
             <Card.Header>
                 <Image
                     alt={props.bonsai.id}
