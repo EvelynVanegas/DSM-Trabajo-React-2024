@@ -1,0 +1,11 @@
+.info-usuario-container {
+    width: 15vw;
+    margin: 10px;
+    padding: 10px;
+}
+
+.item-text {
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-bottom: 1px solid #dee2e6;
+}

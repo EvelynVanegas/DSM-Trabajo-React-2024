@@ -27,9 +27,11 @@ function CarroCompra() {
 
     return (
         <>
-            <Navbar.Toggle aria-controls="offcanvasNavbar" className="navbar-toggle-black">
-                <FaShoppingCart size={35} onClick={handleShowCart} />
+            <Navbar.Toggle aria-controls="offcanvasNavbar" className="ms-auto">
+                <FaShoppingCart size={35} onClick={handleShowCart} style={{ color: 'black' }} />
             </Navbar.Toggle>
+
+
             <Navbar.Offcanvas id="offcanvasNavbar" show={showCart} onHide={handleCloseCart} placement="end">
                 <Offcanvas.Header closeButton>
                     <Offcanvas.Title>Carrito de la compra</Offcanvas.Title>

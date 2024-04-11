@@ -11,15 +11,17 @@ function Header() {
         <>
             <Navbar key='false' expand='false' className="mb-5 custom-navbar">
                 <Container fluid>
-                    
+
                     {/* LOGO */}
                     <Logo />
 
-                    {/* LOG IN */}
-                    <Login />
+                    <div className="d-flex justify-content-end align-items-center me-4">
+                        {/* LOG IN */}
+                        <Login />
 
-                    {/* CARRO DE LA COMPRA */}
-                    <CarroCompra />
+                        {/* CARRO DE LA COMPRA */}
+                        <CarroCompra />
+                    </div>
 
                 </Container>
             </Navbar>

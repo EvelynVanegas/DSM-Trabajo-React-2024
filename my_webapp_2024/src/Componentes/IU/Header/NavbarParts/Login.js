@@ -1,22 +1,25 @@
-import './Login.css'
+import './Login.css';
+
 import NavDropdown from 'react-bootstrap/NavDropdown';
+
+import { FaUser } from 'react-icons/fa';
+import { useContext } from 'react';
+
+import AutContext from '../../../../Almacen/AutContext';
+import FormularioLogin from './Login/FormularioLogin';
+import InfoUsuario from './Login/InfoUsuario';
 
 function Login() {
 
+    const contextAut = useContext(AutContext);
+
     return (
-        <div className="justify-content-end">
-            <NavDropdown title="Identificate" id="basic-nav-dropdown">
-                <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.2">
-                    Another action
-                </NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item href="#action/3.4">
-                    Separated link
-                </NavDropdown.Item>
-            </NavDropdown>
-        </div>
+        <NavDropdown title={<FaUser />} align="end" className='me-3'>
+            {contextAut.login
+            ? <InfoUsuario />
+            : <FormularioLogin />
+            }
+        </NavDropdown>
     );
 }
 

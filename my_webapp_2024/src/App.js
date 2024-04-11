@@ -1,157 +1,39 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+
 import { useState } from 'react';
+import { Route, Routes } from 'react-router-dom';
 
 import Header from './Componentes/IU/Header/Header';
-import Bonsais from './Componentes/Bonsais/Bonsais';
-import Footer from './Componentes/IU/Footer/Footer';
 
-import bon from './Componentes/Bonsais/imgs/BON1.jpg';
+import AutContext from './Almacen/AutContext';
+
+import Inicio from './Paginas/Inicio';
+import InfoPersonal from './Paginas/InfoPersonal';
+import MisPedidos from './Paginas/MisPedidos';
+import Error from './Paginas/Error';
 
 function App() {
 
-  const [bonsais] = useState([
-    {
-      id: 1,
-      name: 'Primer bonsai',
-      imageSrc: bon,
-      price: 45.5
-    },
-    {
-      id: 2,
-      name: 'Segundo bonsai',
-      imageSrc: bon,
-      price: 45
-    },
-    {
-      id: 3,
-      name: 'Tercer bonsai',
-      imageSrc: bon,
-      price: 45.5
-    },
-    {
-      id: 4,
-      name: 'Cuarto bonsai',
-      imageSrc: bon,
-      price: 45.5
-    },
-    {
-      id: 5,
-      name: 'Quinto bonsai',
-      imageSrc: bon,
-      price: 48
-    },{
-      id: 1,
-      name: 'Primer bonsai',
-      imageSrc: bon,
-      price: 45.5
-    },
-    {
-      id: 2,
-      name: 'Segundo bonsai',
-      imageSrc: bon,
-      price: 45
-    },
-    {
-      id: 3,
-      name: 'Tercer bonsai',
-      imageSrc: bon,
-      price: 45.5
-    },
-    {
-      id: 4,
-      name: 'Cuarto bonsai',
-      imageSrc: bon,
-      price: 45.5
-    },
-    {
-      id: 5,
-      name: 'Quinto bonsai',
-      imageSrc: bon,
-      price: 48
-    },{
-      id: 1,
-      name: 'Primer bonsai',
-      imageSrc: bon,
-      price: 45.5
-    },
-    {
-      id: 2,
-      name: 'Segundo bonsai',
-      imageSrc: bon,
-      price: 45
-    },
-    {
-      id: 3,
-      name: 'Tercer bonsai',
-      imageSrc: bon,
-      price: 45.5
-    },
-    {
-      id: 4,
-      name: 'Cuarto bonsai',
-      imageSrc: bon,
-      price: 45.5
-    },
-    {
-      id: 5,
-      name: 'Quinto bonsai',
-      imageSrc: bon,
-      price: 48
-    },{
-      id: 1,
-      name: 'Primer bonsai',
-      imageSrc: bon,
-      price: 45.5
-    },
-    {
-      id: 2,
-      name: 'Segundo bonsai',
-      imageSrc: bon,
-      price: 45
-    },
-    {
-      id: 333,
-      name: 'Tercer bonsai',
-      imageSrc: bon,
-      price: 4
-    },
-    {
-      id: 444,
-      name: 'Cuarto bonsai',
-      imageSrc: bon,
-      price: 0
-    },
-    {
-      id: 555,
-      name: 'Quinto bonsai',
-      imageSrc: bon,
-      price: 0
-    },
-    {
-      id: 789,
-      name: 'Aaaa bonsai',
-      imageSrc: bon,
-      price: 190
-    }
-  ]);
-
-  const [currentPage, setCurrentPage] = useState(1);
-  const bonsaisPerPage = 12; // Define la cantidad de bonsais por página
-
-  const onPageChange = (pageNumber) => {
-    setCurrentPage(pageNumber);
-  };
+  /* Variable global - Log in*/
+  const [login, setLogin] = useState(true);
 
   return (
     <div className="App">
 
-      <Header />
+      <AutContext.Provider value={{login: login}}>
 
-      <Bonsais bonsais={bonsais} currentPage={currentPage} bonsaisPerPage={bonsaisPerPage} />
-      
-      <Footer totalBonsais={bonsais.length} currentPage={currentPage} onPageChange={onPageChange} />
-    
+        <Header />
+        <Routes>
+          <Route path='/' element={<Inicio />} />
+          <Route path='/InfoPersonal' element={<InfoPersonal />} />
+          <Route path='/MisPedidos' element={<MisPedidos />} />
+          <Route path='*' element={<Error />} />
+        </Routes>
+        
+
+      </AutContext.Provider>
+
     </div>
   );
 }
