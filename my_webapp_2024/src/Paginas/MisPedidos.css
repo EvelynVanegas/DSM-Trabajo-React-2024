@@ -5,16 +5,31 @@
 .custom-title {
     background-color: #000;
     color: #fff;
+    font-weight: bold;
     border-radius: 0.5rem;
-    padding: 10px;
-    margin-bottom: 10px;
+    padding: 15px;
+    margin-bottom: 15px;
+    font-size: 2rem; /* o font-size: 2em; */
 }
 
-.custom-thead {
-    border-bottom: 2px solid black;
-}
 
-.custom-th {
+.custom-Item-fila0 {
     border: none;
+    border-bottom: 2px solid black;
+    font-weight: bold;
+}
+
+.scrollable-list {
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+
+.custom-Item {
+    border: none;
+    border-bottom: 1px solid gray;
+}
+
+.custom-rows {
     padding: 10px;
 }

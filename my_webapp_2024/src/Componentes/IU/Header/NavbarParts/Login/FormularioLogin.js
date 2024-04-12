@@ -5,6 +5,8 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 
+import Nav from 'react-bootstrap/Nav';
+
 function FormularioLogin() {
 
     /* Variables del Form */
@@ -44,6 +46,16 @@ function FormularioLogin() {
                 <Button variant="primary" type="submit">
                     Submit
                 </Button>
+            </Form.Group>
+
+            <Form.Group as={Row} className="mb-10" controlId="formGridPassword">
+                <Nav
+                    activeKey="/home"
+                >
+                    <Nav.Item>
+                        <Nav.Link href="/NuevoUsuario">Nuevo Usuario</Nav.Link>
+                    </Nav.Item>
+                </Nav>
             </Form.Group>
 
         </Form>

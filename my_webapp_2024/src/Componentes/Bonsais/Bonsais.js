@@ -6,6 +6,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 function Bonsais({ bonsais, currentPage, bonsaisPerPage }) {
+    
     // Calcula el índice del primer y último bonsai en la página actual
     const indexOfLastBonsai = currentPage * bonsaisPerPage;
     const indexOfFirstBonsai = indexOfLastBonsai - bonsaisPerPage;

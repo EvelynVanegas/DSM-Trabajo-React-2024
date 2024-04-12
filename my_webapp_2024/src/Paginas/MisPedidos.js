@@ -1,8 +1,26 @@
+import React, { useState } from 'react';
 import './MisPedidos.css';
-import Table from 'react-bootstrap/Table';
 import Card from 'react-bootstrap/Card';
+import ListGroup from 'react-bootstrap/ListGroup';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
 
 const MisPedidos = () => {
+    const [showModal, setShowModal] = useState(false);
+    const [selectedPedido, setSelectedPedido] = useState(null);
+
+    const handleOpenModal = (pedido) => {
+        setSelectedPedido(pedido);
+        setShowModal(true);
+    };
+
+    const handleCloseModal = () => {
+        setShowModal(false);
+    };
+
+    /* Pedir JSON de la lista de productos segun el usuario */
     const pedidos = [
         { id: 1, producto: 'Producto 1', cantidad: 3, precioUnitario: 10 },
         { id: 2, producto: 'Producto 2', cantidad: 2, precioUnitario: 15 },
@@ -25,31 +43,52 @@ const MisPedidos = () => {
             <Card className="custom-card">
                 <Card.Body>
                     <Card.Title className="custom-title">MIS PEDIDOS</Card.Title>
-                    <Table responsive="sm">
-                        <thead className="custom-thead">
-                            <tr>
-                                <th className="custom-th"></th>
-                                <th className="custom-th">Producto</th>
-                                <th className="custom-th">Cantidad</th>
-                                <th className="custom-th">Precio Unitario</th>
-                                <th className="custom-th">Total</th>
-                            </tr>
-                        </thead>
-                        
-                        <tbody>
+                    <ListGroup>
+                        <ListGroup.Item className='custom-Item-fila0'>
+                            <Row>
+                                <Col>ID</Col>
+                                <Col>Producto</Col>
+                                <Col>Cantidad</Col>
+                                <Col>Precio Unitario</Col>
+                                <Col>Total</Col>
+                            </Row>
+                        </ListGroup.Item>
+                        <div className="scrollable-list">
                             {pedidos.map((pedido, index) => (
-                                <tr key={index}>
-                                    <td>{pedido.id}</td>
-                                    <td>{pedido.producto}</td>
-                                    <td>{pedido.cantidad}</td>
-                                    <td>{pedido.precioUnitario}</td>
-                                    <td>{pedido.cantidad * pedido.precioUnitario}</td>
-                                </tr>
+                                <ListGroup.Item key={index} action className='custom-Item' onClick={() => handleOpenModal(pedido)}>
+                                    <Row className='custom-rows'>
+                                        <Col>{pedido.id}</Col>
+                                        <Col>{pedido.producto}</Col>
+                                        <Col>{pedido.cantidad}</Col>
+                                        <Col>{pedido.precioUnitario}</Col>
+                                        <Col>{pedido.cantidad * pedido.precioUnitario}</Col>
+                                    </Row>
+                                </ListGroup.Item>
                             ))}
-                        </tbody>
-                    </Table>
+                        </div>
+                    </ListGroup>
                 </Card.Body>
             </Card>
+            <Modal show={showModal} onHide={handleCloseModal}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Detalles del Pedido</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <p>ID: {selectedPedido && selectedPedido.id}</p>
+                    <p>Producto: {selectedPedido && selectedPedido.producto}</p>
+                    <p>Cantidad: {selectedPedido && selectedPedido.cantidad}</p>
+                    <p>Precio Unitario: {selectedPedido && selectedPedido.precioUnitario}</p>
+                    <p>Total: {selectedPedido && selectedPedido.cantidad * selectedPedido.precioUnitario}</p>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="outline-danger" onClick={handleCloseModal}>
+                        Eliminar pedido
+                    </Button>
+                    <Button variant="primary" onClick={handleCloseModal}>
+                        Cerrar
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </div>
     );
 }
