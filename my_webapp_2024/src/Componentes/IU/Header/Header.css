@@ -1,5 +1,5 @@
 .custom-navbar {
-    background-color: #f07027be;
+    background-image: linear-gradient(to bottom right, rgba(255, 255, 255), rgb(236, 187, 66), rgb(206, 16, 42));
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.548);
     display: flex;
     flex-direction: column;

@@ -53,7 +53,7 @@ function FormularioLogin() {
                     activeKey="/home"
                 >
                     <Nav.Item>
-                        <Nav.Link href="/NuevoUsuario">Nuevo Usuario</Nav.Link>
+                        <Nav.Link href="/NuevoUsuario" className="custom-nav-link">Nuevo Usuario</Nav.Link>
                     </Nav.Item>
                 </Nav>
             </Form.Group>

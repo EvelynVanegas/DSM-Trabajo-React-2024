@@ -1,0 +1,19 @@
+.container-registration {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70vh;
+}
+
+.form-registration {
+    background-image: linear-gradient(to bottom, rgba(206, 16, 42, 0.9), rgba(236, 187, 66, 0.9));
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.548);
+    flex-direction: column;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: black;
+    border-radius: 0.5rem;
+    padding: 20px;
+    margin-bottom: 20px;
+    width: 70%;
+}

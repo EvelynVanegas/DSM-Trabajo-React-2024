@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { FaShoppingCart } from 'react-icons/fa';
+
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';

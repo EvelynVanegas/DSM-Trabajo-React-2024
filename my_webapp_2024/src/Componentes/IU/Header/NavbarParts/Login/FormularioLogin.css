@@ -3,3 +3,12 @@
     margin: 10px;
     padding: 10px;
 }
+
+.custom-nav-link {
+    color: blue; /* Color del texto en azul */
+    text-decoration: underline; /* Subrayado para indicar un enlace */
+}
+
+.custom-nav-link:hover {
+    color: darkblue; /* Cambia el color del texto cuando pasas el ratón sobre él */
+}
