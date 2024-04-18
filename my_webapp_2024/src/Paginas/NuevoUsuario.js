@@ -111,7 +111,7 @@ const Inicio = () => {
                 </Row>
 
                 <Form.Group as={Col} className="mb-4" controlId="formGridAddress">
-                    <Form.Label>Address</Form.Label>
+                    <Form.Label>Dirección</Form.Label>
                     <Row>
                         <Col>
                             <Form.Control placeholder="Calle" />

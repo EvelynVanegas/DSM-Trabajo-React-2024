@@ -51,30 +51,26 @@ function CarroCompra() {
                 <Modal.Header closeButton>
                     <Modal.Title>Confirmar pedido</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>¿Estás seguro de que deseas realizar el pedido?</Modal.Body>
+                <Modal.Body>
+                    Detalles de nuestra compra, el total y la opción de CONTINUAR
+                </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleCloseConfirmation}>
                         Cancelar
                     </Button>
                     <Button variant="primary" onClick={handleShowFormModal}>
-                        Confirmar pedido
+                        Continuar con el pedido
                     </Button>
                 </Modal.Footer>
             </Modal>
 
             <Modal show={showFormModal} onHide={handleCloseFormModal}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Formulario de pedido</Modal.Title>
+                    <Modal.Title>Formulario dirección de envío</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Formulario />
                 </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleCloseFormModal}>
-                        Cerrar
-                    </Button>
-                    {/* Puedes agregar más botones para enviar el formulario, etc. */}
-                </Modal.Footer>
             </Modal>
         </>
     );

@@ -17,7 +17,7 @@ import Error from './Paginas/Error';
 function App() {
 
   /* Variable global - Log in*/
-  const [login, setLogin] = useState(false);
+  const [login, setLogin] = useState(true);
 
   return (
     <div className="App">

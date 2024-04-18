@@ -10,6 +10,7 @@ import Button from 'react-bootstrap/Button';
 const MisPedidos = () => {
     const [showModal, setShowModal] = useState(false);
     const [selectedPedido, setSelectedPedido] = useState(null);
+    const [showConfirmation, setShowConfirmation] = useState(false);
 
     const handleOpenModal = (pedido) => {
         setSelectedPedido(pedido);
@@ -18,6 +19,20 @@ const MisPedidos = () => {
 
     const handleCloseModal = () => {
         setShowModal(false);
+        setShowConfirmation(false); // Resetear el estado de confirmación
+    };
+
+    const handleDeleteConfirmation = (pedido) => {
+        setSelectedPedido(pedido);
+        setShowConfirmation(true);
+    };
+
+    const handleDeletePedido = () => {
+        // Aquí puedes implementar la lógica para eliminar el pedido
+        // Por ejemplo, puedes hacer una solicitud a tu servidor para eliminar el pedido de la base de datos
+
+        // Después de eliminar el pedido, cierra el modal
+        handleCloseModal();
     };
 
     /* Pedir JSON de la lista de productos segun el usuario */
@@ -69,7 +84,7 @@ const MisPedidos = () => {
                     </ListGroup>
                 </Card.Body>
             </Card>
-            <Modal show={showModal} onHide={handleCloseModal}>
+            <Modal show={showModal && !showConfirmation} onHide={handleCloseModal}>
                 <Modal.Header closeButton>
                     <Modal.Title>Detalles del Pedido</Modal.Title>
                 </Modal.Header>
@@ -81,11 +96,28 @@ const MisPedidos = () => {
                     <p>Total: {selectedPedido && selectedPedido.cantidad * selectedPedido.precioUnitario}</p>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="outline-danger" onClick={handleCloseModal}>
+                    <Button variant="outline-danger" onClick={() => handleDeleteConfirmation(selectedPedido)}>
                         Eliminar pedido
                     </Button>
                     <Button variant="primary" onClick={handleCloseModal}>
                         Cerrar
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+            {/* Modal de confirmación para eliminar */}
+            <Modal show={showConfirmation} onHide={() => setShowConfirmation(false)}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Confirmación</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    ¿Estás seguro de que deseas eliminar este pedido?
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={() => setShowConfirmation(false)}>
+                        Cancelar
+                    </Button>
+                    <Button variant="danger" onClick={handleDeletePedido}>
+                        Eliminar
                     </Button>
                 </Modal.Footer>
             </Modal>
