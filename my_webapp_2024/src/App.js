@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
 import Header from './Componentes/IU/Header/Header';
+import Footer from './Componentes/IU/Footer/Footer'
 
 import AutContext from './Almacen/AutContext';
 
@@ -32,7 +33,7 @@ function App() {
           <Route path='/NuevoUsuario' element={<NuevoUsuario />} />
           <Route path='*' element={<Error />} />
         </Routes>
-        
+        <Footer />
 
       </AutContext.Provider>
 

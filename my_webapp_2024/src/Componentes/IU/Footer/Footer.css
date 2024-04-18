@@ -1,0 +1,17 @@
+/* Estilos para el contenedor principal */
+.container-allpage {
+    position: relative; /* Establecer la posición relativa */
+    min-height: 75vh; /* Altura mínima igual al tamaño de la ventana del navegador */
+  }
+  
+  /* Estilos para el footer */
+  .custom-navbar-footer {
+    position: absolute; /* Establecer la posición absoluta */
+    bottom: 0; /* Fijar en la parte inferior */
+    width: 100%; /* Ocupar todo el ancho */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.548); /* Sombra */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import Bonsais from '../Componentes/Bonsais/Bonsais';
-import Footer from '../Componentes/IU/Footer/Footer';
+import Pagination from '../Componentes/IU/Header/Pagination/Pagination';
 
 import bon from '../Componentes/Bonsais/imgs/BON1.jpg';
 
@@ -146,7 +146,7 @@ const Inicio = () => {
         <>
             <Bonsais bonsais={bonsais} currentPage={currentPage} bonsaisPerPage={bonsaisPerPage} />
 
-            <Footer totalBonsais={bonsais.length} currentPage={currentPage} onPageChange={onPageChange} />
+            <Pagination totalBonsais={bonsais.length} currentPage={currentPage} onPageChange={onPageChange} />
         </>
     )
 }

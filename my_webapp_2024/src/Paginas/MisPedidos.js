@@ -54,7 +54,7 @@ const MisPedidos = () => {
     ];
 
     return (
-        <div className="d-flex justify-content-center align-items-center h-100">
+        <div className="d-flex justify-content-center align-items-center mb-5">
             <Card className="custom-card">
                 <Card.Body>
                     <Card.Title className="custom-title">MIS PEDIDOS</Card.Title>

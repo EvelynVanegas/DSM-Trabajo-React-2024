@@ -21,7 +21,7 @@ const InfoPersonal = () => {
     const user = users.user;
 
     return (
-        <MDBContainer>
+        <MDBContainer className='container-allpage'>
             <MDBRow>
                 <MDBCol>
                     <MDBCard style={{ borderRadius: '.5rem' }}>
