@@ -1,11 +1,21 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import Bonsais from '../Componentes/Bonsais/Bonsais';
 import Pagination from '../Componentes/IU/Header/Pagination/Pagination';
 
-import bon from '../Componentes/Bonsais/imgs/BON1.jpg';
+import bon from '../Componentes/Bonsais/imgs/BON1.png';
+
+import axios from 'axios';
 
 const Inicio = () => {
+
+    // Se piden los datos de la BBDD
+    useEffect(() => {
+        axios.get('https://bonsem-dsm-default-rtdb.europe-west1.firebasedatabase.app/bonsais.json')
+        .then((response) => {
+            console.log(response);
+        })
+    });
 
     /* JSON bonsais de la BBDD*/
     const [bonsais] = useState([
