@@ -2,6 +2,11 @@
     background-color: #f8f9fa;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
+
+.card-head {
+    background-color: rgba(204, 238, 227, 0.301);
+}
+
 .quantity-btns {
     display: flex;
     align-items: center;
@@ -19,8 +24,20 @@
 }
 
 .product-quantity__count {
-    font-size: 1.5vw;
+    font-size: 1.4vw; /* Tamaño de fuente relativo */
     margin-left: 20px;
     color: rgb(3, 70, 3);
     font-family: Arial, sans-serif;
+}
+
+.card-body {
+    font-size: 1vw;
+    padding: 1.5vw;
+}
+
+.card-body .card-title {
+    max-width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }

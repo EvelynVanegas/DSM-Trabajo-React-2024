@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import Bonsais from '../Componentes/Bonsais/Bonsais';
-import Pagination from '../Componentes/IU/Header/Pagination/Pagination';
+import Pagination from '../Componentes/IU/Header/Pagination/Pagination_number';
 
 import axios from 'axios';
 
@@ -30,11 +30,12 @@ const Inicio = () => {
     const onPageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
     };
+
     return (
         <>
             <Bonsais bonsais={bonsais} currentPage={currentPage} bonsaisPerPage={bonsaisPerPage} />
 
-            <Pagination totalBonsais={bonsais.length} currentPage={currentPage} onPageChange={onPageChange} />
+            <Pagination totalBonsais={bonsais.length} bonsaisPerPage={bonsaisPerPage} currentPage={currentPage} onPageChange={onPageChange} />
         </>
     )
 }

@@ -1,9 +1,9 @@
-import './Pagination.css'
+import './Pagination_number.css'
 import React from 'react';
 import Pagination from 'react-bootstrap/Pagination';
 
-function Footer({ totalBonsais, currentPage, onPageChange }) {
-    const bonsaisPerPage = 16; // Número de bonsais por página
+function Pagination_number({ totalBonsais, bonsaisPerPage, currentPage, onPageChange }) {
+
     const totalPages = Math.ceil(totalBonsais / bonsaisPerPage);
 
     const pageNumbers = [];
@@ -33,4 +33,4 @@ function Footer({ totalBonsais, currentPage, onPageChange }) {
     );
 }
 
-export default Footer;
+export default Pagination_number;
