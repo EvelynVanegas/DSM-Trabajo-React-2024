@@ -1,11 +1,15 @@
 import './InfoUsuario.css';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 
-function InfoUsuario() {
+function InfoUsuario(props) {
 
     /* Obtener JSON con la información del usuario */
     const user = {
         name: "Menganito"
+    }
+
+    const logoutHandler = () => {
+        props.updateLogin(false, {});
     }
 
     return (
@@ -17,7 +21,7 @@ function InfoUsuario() {
             <NavDropdown.Item href="/MisPedidos">
                 Mis pedidos
             </NavDropdown.Item>
-            <NavDropdown.Item href="/">
+            <NavDropdown.Item onClick={logoutHandler}>
                 Cerrar sesión
             </NavDropdown.Item>
         </div>

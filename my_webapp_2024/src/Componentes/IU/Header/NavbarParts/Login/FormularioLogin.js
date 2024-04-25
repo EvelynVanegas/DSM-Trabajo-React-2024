@@ -4,47 +4,51 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
-
 import Nav from 'react-bootstrap/Nav';
 
-function FormularioLogin() {
+import axios from 'axios';
+
+function FormularioLogin(props) {
 
     /* Variables del Form */
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const handleSubmit = (event) => { // event.preventDefault(); // Evita que se recargue la página al enviar el formulario */
+    const submitHandler = (event) => {
+        event.preventDefault(); // Evita que se recargue la página al enviar el formulario */
 
-        /* Verificar con la BBDD de los usuarios */
-        const users = {
-            email: "evevanetene@gmail.com",
-            password: "a"
+        const authData = {
+            email: email,
+            password: password,
+            returnSecureToken: true
         }
 
-        if (email === users.email && password === users.password) {
-            alert('Inicio de sesión exitoso');
-            // Aquí podrías redirigir al usuario a otra página o realizar otras acciones
-        } else {
-            alert('Credenciales incorrectas. Por favor, inténtelo de nuevo.');
-        }
+        // [API_KEY] -> por la key que nos da firebase
+        axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=[API_KEY]', authData)
+        .then((response)=>{
+            console.log(response);
+            props.updateLogin(true, response.data);
+        }).catch((error) => {
+            alert('Usuario o contraseña incorrecto');
+        })
     };
 
     return (
-        <Form className="custom-form">
+        <Form className="custom-form" onSubmit={submitHandler}>
 
             <Form.Group as={Row} className="mb-3" controlId="formGridEmail">
                 <Form.Label>Email</Form.Label>
-                <Form.Control type="email" placeholder="Enter email" />
+                <Form.Control type="email" placeholder="Email" value={email} onChange={(event) => setEmail(event.target.value)}/>
             </Form.Group>
 
             <Form.Group as={Row} className="mb-3" controlId="formGridPassword">
-                <Form.Label>Password</Form.Label>
-                <Form.Control type="password" placeholder="Password" />
+                <Form.Label>Contraseña</Form.Label>
+                <Form.Control type="password" placeholder="Contraseña" value={password} onChange={(event) => setPassword(event.target.value)}/>
             </Form.Group>
 
             <Form.Group as={Row} className="mb-10" controlId="formGridPassword">
-                <Button variant="primary" type="submit">
-                    Submit
+                <Button variant="success" type="submit">
+                    Entrar
                 </Button>
             </Form.Group>
 

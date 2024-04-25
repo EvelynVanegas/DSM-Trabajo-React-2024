@@ -6,7 +6,7 @@ import Logo from "./NavbarParts/Logo"
 import Login from "./NavbarParts/Login"
 import CarroCompra from "./NavbarParts/CarroCompra"
 
-function Header() {
+function Header(props) {
 
     return (
         <>
@@ -18,7 +18,7 @@ function Header() {
 
                     <div className="d-flex justify-content-end align-items-center me-4">
                         {/* LOG IN */}
-                        <Login />
+                        <Login updateLogin={props.updateLogin}/>
 
                         {/* CARRO DE LA COMPRA */}
                         <CarroCompra />

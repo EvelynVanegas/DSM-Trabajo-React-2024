@@ -9,15 +9,15 @@ import AutContext from '../../../../Almacen/AutContext';
 import FormularioLogin from './Login/FormularioLogin';
 import InfoUsuario from './Login/InfoUsuario';
 
-function Login() {
+function Login(props) {
 
     const contextAut = useContext(AutContext);
 
     return (
         <NavDropdown title={<FaUser />} align="end" className='me-3'>
             {contextAut.login
-            ? <InfoUsuario />
-            : <FormularioLogin />
+            ? <InfoUsuario updateLogin={props.updateLogin}/>
+            : <FormularioLogin updateLogin={props.updateLogin}/>
             }
         </NavDropdown>
     );

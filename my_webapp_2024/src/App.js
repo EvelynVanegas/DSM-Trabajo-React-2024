@@ -17,20 +17,25 @@ import Error from './Paginas/Error';
 
 function App() {
 
-  /* Variable global - Log in*/
-  const [login, setLogin] = useState(true);
+  const [login, setLogin] = useState(false);
+  const [loginData, setLoginData] = useState({});
+
+  const updateLogin = (login, loginData) => {
+    setLogin(login);
+    setLoginData(loginData);
+  }
 
   return (
     <div className="App">
 
       <AutContext.Provider value={{login: login}}>
 
-        <Header />
+        <Header updateLogin={updateLogin}/>
         <Routes>
           <Route path='/' element={<Inicio />} />
           <Route path='/InfoPersonal' element={<InfoPersonal />} />
           <Route path='/MisPedidos' element={<MisPedidos />} />
-          <Route path='/NuevoUsuario' element={<NuevoUsuario />} />
+          <Route path='/NuevoUsuario' element={<NuevoUsuario updateLogin={updateLogin}/>} />
           <Route path='*' element={<Error />} />
         </Routes>
         <Footer />

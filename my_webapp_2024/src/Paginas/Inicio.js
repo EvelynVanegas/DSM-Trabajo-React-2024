@@ -14,8 +14,18 @@ const Inicio = () => {
     useEffect(() => {
         axios.get('https://bonsem-dsm-default-rtdb.europe-west1.firebasedatabase.app/bonsais.json')
             .then((response) => {
-                // Almacena los datos en el estado bonsais
-                setBonsais(response.data);
+                if (response.data) {
+                    // Convertir el objeto de objetos a un array de objetos
+                    const bonsaisArray = Object.keys(response.data).map(key => ({
+                        id: key,
+                        name: response.data[key].name,
+                        imageSrc: response.data[key].imageSrc,
+                        price: response.data[key].price,
+                        info: response.data[key].info
+                    }));
+                    // Almacena los datos en el estado bonsais
+                    setBonsais(bonsaisArray);
+                }
             })
             .catch((error) => {
                 console.error('Error al obtener los datos de los bonsais:', error);
