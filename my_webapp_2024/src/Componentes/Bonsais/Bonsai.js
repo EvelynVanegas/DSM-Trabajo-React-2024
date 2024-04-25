@@ -25,6 +25,14 @@ function Bonsai(props) {
         </Tooltip>
     );
 
+    // Ruta base de las imágenes
+    const imgBasePath = '../Bonsais/imgs/';
+    // Generar la ruta completa para la imagen de cada bonsái
+    const imgSrc = imgBasePath + props.bonsai.imageSrc;
+
+    console.log(typeof imgSrc);
+    console.log(imgSrc);
+
     return (
         <OverlayTrigger
             placement="auto"
@@ -34,8 +42,8 @@ function Bonsai(props) {
             <Card className="mb-5 total-card" style={{ maxWidth: '280px' }}>
                 <Card.Header>
                     <Image
-                        alt={props.bonsai.id}
-                        src={props.bonsai.imageSrc}
+                        alt="BonsaiImg"//{props.bonsai.id}
+                        src={imgSrc}
                         loading="lazy"
                         fluid
                     />
@@ -43,9 +51,9 @@ function Bonsai(props) {
                 <Card.Body>
                     <Card.Title>{props.bonsai.name}</Card.Title>
                     <Card.Text>
-                        <p className="product-price__unit-price">
+                        <span className="product-price__unit-price">
                             {props.bonsai.price} €
-                        </p>
+                        </span>
                     </Card.Text>
                     <div className="product-quantity-wrapper">
                         <span className="product-quantity__count">{quantity} Unidades</span>
