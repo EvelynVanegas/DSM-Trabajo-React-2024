@@ -1,0 +1,9 @@
+.OffcanvasBody {
+    width: 90%;
+    margin: auto;
+}
+
+.list-item-border {
+    border-bottom: 1px solid #ccc;
+    padding: 1vh;
+}

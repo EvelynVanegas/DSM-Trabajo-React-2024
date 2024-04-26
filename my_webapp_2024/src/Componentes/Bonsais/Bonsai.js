@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import './Bonsai.css';
 import Button from 'react-bootstrap/Button';
 import Image from 'react-bootstrap/Image';
@@ -6,22 +6,57 @@ import Card from 'react-bootstrap/Card';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 
+import AutContext from '../../Almacen/AutContext';
+
 function Bonsai(props) {
     const [quantity, setQuantity] = useState(0);
+    const { cartItems, updateCartItems } = useContext(AutContext);
+
+    // Verificar si el producto ya está en el carrito y obtener su cantidad
+    useEffect(() => {
+        const existingItem = cartItems.find(item => item.id === props.bonsai.id);
+        if (existingItem) {
+            setQuantity(existingItem.quantity);
+        } else {
+            setQuantity(0);
+        }
+    }, [cartItems, props.bonsai.id]);
 
     const handleAdd = () => {
-        setQuantity(quantity + 1);
+        const existingItemIndex = cartItems.findIndex(item => item.id === props.bonsai.id);
+        if (existingItemIndex !== -1) {
+            // El producto ya está en el carrito, actualiza la cantidad
+            const updatedCartItems = [...cartItems];
+            updatedCartItems[existingItemIndex].quantity += 1;
+            updateCartItems(updatedCartItems);
+            setQuantity(quantity + 1);
+        } else {
+            // El producto no está en el carrito, añádelo
+            const newItem = { id: props.bonsai.id, name: props.bonsai.name, price: props.bonsai.price, quantity: 1 };
+            const updatedCartItems = [...cartItems, newItem]; // Añadir nuevo elemento
+            updateCartItems(updatedCartItems);
+            setQuantity(1);
+        }
     };
 
     const handleRemove = () => {
         if (quantity > 0) {
-            setQuantity(quantity - 1);
+            const existingItemIndex = cartItems.findIndex(item => item.id === props.bonsai.id);
+            if (existingItemIndex !== -1) {
+                // El producto está en el carrito, actualiza la cantidad
+                const updatedCartItems = [...cartItems];
+                updatedCartItems[existingItemIndex].quantity -= 1;
+                if (updatedCartItems[existingItemIndex].quantity === 0) {
+                    // Si la cantidad es 0, elimina el producto del carrito
+                    updatedCartItems.splice(existingItemIndex, 1);
+                }
+                updateCartItems(updatedCartItems);
+                setQuantity(quantity - 1);
+            }
         }
     };
 
-    // Importar todas las imágenes del directorio 'imgs' de manera dinámica
     const images = require.context('../Bonsais/imgs', true);
-    // Obtener la ruta de la imagen específica según el nombre proporcionado en props
     const imgSrc = images(`./${props.bonsai.imageSrc}`);
 
     return (
