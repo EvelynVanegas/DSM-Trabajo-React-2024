@@ -23,11 +23,12 @@ function FormularioLogin(props) {
             returnSecureToken: true
         }
 
-        // [API_KEY] -> por la key que nos da firebase
-        axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=[API_KEY]', authData)
+        // [API_KEY] -> por la key que nos da firebase AIzaSyBrMLxhi9iQ9qX8lSMqY2B6_EISzryOI9Q
+        axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBrMLxhi9iQ9qX8lSMqY2B6_EISzryOI9Q', authData)
         .then((response)=>{
             console.log(response);
             props.updateLogin(true, response.data);
+            alert('Ha entrado correctamente');
         }).catch((error) => {
             alert('Usuario o contraseña incorrecto');
         })

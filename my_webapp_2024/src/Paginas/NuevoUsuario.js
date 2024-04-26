@@ -6,7 +6,9 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 
-const Inicio = () => {
+import axios from 'axios';
+
+const NuevoUsuario = (props) => {
 
     const [provinciaSeleccionada, setProvinciaSeleccionada] = useState('');
     const [localidadSeleccionada, setLocalidadSeleccionada] = useState('');
@@ -60,31 +62,64 @@ const Inicio = () => {
         setLocalidadSeleccionada(''); // Reiniciar la localidad seleccionada al cambiar la provincia
     };
 
+
+    /* Variables del Form */
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [name, setName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [calle, setCalle] = useState('');
+    const [portal, setPortal] = useState('');
+    const [piso, setPiso] = useState('');
+    const [puerta, setPuerta] = useState('');
+
+    // Registrar en la BBDD nuevos usuarios
+    const submitHandler = (event) => {
+        event.preventDefault(); // Evita que se recargue la página al enviar el formulario */
+
+        const authData = {
+            email: email,
+            password: password,
+            returnSecureToken: true
+        }
+
+        // [API_KEY] -> por la key que nos da firebase AIzaSyBrMLxhi9iQ9qX8lSMqY2B6_EISzryOI9Q
+        axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBrMLxhi9iQ9qX8lSMqY2B6_EISzryOI9Q', authData)
+            .then((response) => {
+                console.log(response);
+                props.updateLogin(true, response.data);
+                alert('Se ha registrado correctamente');
+                window.location.href = '/';
+            }).catch((error) => {
+                alert('Usuario o contraseña incorrecto');
+            })
+    };
+
     return (
         <div className='container-registration'>
-            <Form className='form-registration'>
+            <Form className='form-registration' onSubmit={submitHandler}>
 
                 <Row className="mb-3">
                     <Form.Group as={Col} controlId="formGridName" className="me-5">
                         <Form.Label>Nombre</Form.Label>
-                        <Form.Control type="name" placeholder="Nombre" />
+                        <Form.Control type="name" placeholder="Nombre" value={name} onChange={(event) => setName(event.target.value)} />
                     </Form.Group>
 
                     <Form.Group as={Col} controlId="formGridApellidos">
                         <Form.Label>Apellidos</Form.Label>
-                        <Form.Control type="last-name" placeholder="Apellidos" />
+                        <Form.Control type="last-name" placeholder="Apellidos" value={lastName} onChange={(event) => setLastName(event.target.value)} />
                     </Form.Group>
                 </Row>
 
                 <Row className="mb-3">
                     <Form.Group as={Col} controlId="formGridEmail" className="me-5">
                         <Form.Label>Email</Form.Label>
-                        <Form.Control type="email" placeholder="Intoduce tu email" />
+                        <Form.Control type="email" placeholder="Introduce tu email" value={email} onChange={(event) => setEmail(event.target.value)} />
                     </Form.Group>
 
                     <Form.Group as={Col} controlId="formGridPassword">
                         <Form.Label>Contraseña</Form.Label>
-                        <Form.Control type="password" placeholder="Contraseña" />
+                        <Form.Control type="password" placeholder="Contraseña" value={password} onChange={(event) => setPassword(event.target.value)} />
                     </Form.Group>
                 </Row>
 
@@ -114,16 +149,16 @@ const Inicio = () => {
                     <Form.Label>Dirección</Form.Label>
                     <Row>
                         <Col>
-                            <Form.Control placeholder="Calle" />
+                            <Form.Control placeholder="Calle" type='calle' value={calle} onChange={(event) => setCalle(event.target.value)} />
                         </Col>
                         <Col>
-                            <Form.Control placeholder="Portal" />
+                            <Form.Control placeholder="Portal" type='portal' value={portal} onChange={(event) => setPortal(event.target.value)} />
                         </Col>
                         <Col>
-                            <Form.Control placeholder="Piso" />
+                            <Form.Control placeholder="Piso" type='piso' value={piso} onChange={(event) => setPiso(event.target.value)} />
                         </Col>
                         <Col>
-                            <Form.Control placeholder="Puerta" />
+                            <Form.Control placeholder="Puerta" type='puerta' value={puerta} onChange={(event) => setPuerta(event.target.value)} />
                         </Col>
                     </Row>
                 </Form.Group>
@@ -136,4 +171,4 @@ const Inicio = () => {
     )
 }
 
-export default Inicio;
+export default NuevoUsuario;
