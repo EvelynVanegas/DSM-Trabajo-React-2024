@@ -21,7 +21,7 @@ function InfoUsuario(props) {
             <NavDropdown.Item href="/MisPedidos">
                 Mis pedidos
             </NavDropdown.Item>
-            <NavDropdown.Item onClick={logoutHandler}>
+            <NavDropdown.Item onClick={logoutHandler} href="/">
                 Cerrar sesión
             </NavDropdown.Item>
         </div>

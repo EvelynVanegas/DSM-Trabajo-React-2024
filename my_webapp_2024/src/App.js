@@ -1,7 +1,7 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
 import Header from './Componentes/IU/Header/Header';
@@ -23,19 +23,37 @@ function App() {
   const updateLogin = (login, loginData) => {
     setLogin(login);
     setLoginData(loginData);
+    localStorage.setItem('login', login);
+    localStorage.setItem('loginData', loginData.idToken);
   }
+
+  useEffect(() => {
+    if (localStorage.getItem('login') === 'true') {
+      setLogin(true);
+      setLoginData({ idToke: localStorage.getItem('loginData') });
+    }
+  }, []);
 
   return (
     <div className="App">
 
-      <AutContext.Provider value={{login: login}}>
+      <AutContext.Provider value={{ login: login }}>
 
-        <Header updateLogin={updateLogin}/>
+        <Header updateLogin={updateLogin} />
+
         <Routes>
+
           <Route path='/' element={<Inicio />} />
-          <Route path='/InfoPersonal' element={<InfoPersonal />} />
-          <Route path='/MisPedidos' element={<MisPedidos />} />
-          <Route path='/NuevoUsuario' element={<NuevoUsuario updateLogin={updateLogin}/>} />
+
+          {login ? (
+            <>
+              <Route path='/InfoPersonal' element={<InfoPersonal />} />
+              <Route path='/MisPedidos' element={<MisPedidos />} />
+            </>
+          ) : null}
+
+          {!login && <Route path='/NuevoUsuario' element={<NuevoUsuario />} />}
+
           <Route path='*' element={<Error />} />
         </Routes>
         <Footer />
