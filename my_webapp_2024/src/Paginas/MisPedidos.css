@@ -19,6 +19,15 @@
     font-weight: bold;
 }
 
+.custom-Item-fila0-1 {
+    border: none;
+}
+
+.custom-Item-fila0-1-row {
+    border: 2px solid rgb(24, 8, 1);
+    font-weight: bold;
+}
+
 .scrollable-list {
     max-height: 500px;
     overflow-y: auto;

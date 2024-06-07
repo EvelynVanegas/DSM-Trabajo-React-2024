@@ -1,24 +1,40 @@
-import './InfoPersonal.css'
-import React from 'react';
-import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBCardImage, MDBTypography } from 'mdb-react-ui-kit';
+import './InfoPersonal.css';
+import React, { useEffect, useState, useContext } from 'react';
+import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBTypography } from 'mdb-react-ui-kit';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faMobileAlt, faMapMarkerAlt, faRoad, faBuilding, faUser } from '@fortawesome/free-solid-svg-icons';
-
+import { FaUserCircle } from "react-icons/fa";
+import axios from 'axios';
 import Button from 'react-bootstrap/Button';
 
+import AutContext from '../Almacen/AutContext';
+
 const InfoPersonal = () => {
+    const [user, setUser] = useState(null);
+    const contextAut = useContext(AutContext);
 
-    const users = {
-        user: {
-            id: 123456,
-            name: "Menganito",
-            email: "menganito@gmail.com",
-            address: "Calle M1",
-            tlf: 66666666666
-        }
-    };
+    useEffect(() => {
+        axios.get('https://bonsem-dsm-default-rtdb.europe-west1.firebasedatabase.app/users.json')
+            .then((response) => {
+                const usersArray = Object.entries(response.data).map(([id, userData]) => ({
+                    id: id,
+                    ...userData
+                }));
+                const userWithEmail = usersArray.find(user => user.email === contextAut.loginEmail);
+                if (userWithEmail) {
+                    setUser(userWithEmail);
+                } else {
+                    console.log("Usuario no encontrado");
+                }
+            })
+            .catch((error) => {
+                console.error('Error fetching user data:', error);
+            });
+    }, [contextAut.loginEmail]);
 
-    const user = users.user;
+    if (!user) {
+        return <div>Cargando...</div>;
+    }
 
     return (
         <MDBContainer className='container-allpage'>
@@ -28,8 +44,7 @@ const InfoPersonal = () => {
                         <MDBRow className="g-0">
                             <MDBCol className="gradient-custom d-flex flex-column justify-content-center align-items-center text-white"
                                 style={{ borderTopLeftRadius: '.5rem', borderBottomLeftRadius: '.5rem' }}>
-                                <MDBCardImage src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
-                                    alt="Avatar" className="my-3" style={{ width: '200px' }} fluid />
+                                <FaUserCircle size={250} className="my-3" alt="Avatar" />
                                 <MDBTypography tag="h1" className="text-center">{user.name}</MDBTypography>
                                 <MDBCardText className="text-center">#{user.id}</MDBCardText>
                             </MDBCol>
@@ -53,11 +68,11 @@ const InfoPersonal = () => {
                                     <MDBRow className="pt-1">
                                         <MDBCol size="6" className="mb-3">
                                             <MDBTypography tag="h5">Calle <FontAwesomeIcon icon={faRoad} /> </MDBTypography>
-                                            <MDBCardText className="text-muted">{user.address}</MDBCardText>
+                                            <MDBCardText className="text-muted">{user.calle}, {user.portal}</MDBCardText>
                                         </MDBCol>
                                         <MDBCol size="6" className="mb-3">
                                             <MDBTypography tag="h5">Piso <FontAwesomeIcon icon={faBuilding} /> </MDBTypography>
-                                            <MDBCardText className="text-muted">{user.address}</MDBCardText>
+                                            <MDBCardText className="text-muted">{user.piso}º, {user.puerta}</MDBCardText>
                                         </MDBCol>
                                     </MDBRow>
 

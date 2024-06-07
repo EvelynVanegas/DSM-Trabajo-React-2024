@@ -15,18 +15,22 @@ function App() {
   const [login, setLogin] = useState(false);
   const [loginData, setLoginData] = useState({});
   const [cartItems, setCartItems] = useState([]);
+  const [loginEmail, setLoginEmail] = useState(null);
 
-  const updateLogin = (login, loginData) => {
+  const updateLogin = (login, loginData, loginEmail) => {
     setLogin(login);
     setLoginData(loginData);
+    setLoginEmail(loginEmail);
     localStorage.setItem('login', login);
     localStorage.setItem('loginData', loginData.idToken);
+    localStorage.setItem('loginEmail', loginEmail);
   }
 
   useEffect(() => {
     if (localStorage.getItem('login') === 'true') {
       setLogin(true);
       setLoginData({ idToke: localStorage.getItem('loginData') });
+      setLoginEmail(localStorage.getItem('loginEmail'));
     }
     const storedCartItems = localStorage.getItem('cartItems');
     if (storedCartItems) {
@@ -45,7 +49,7 @@ function App() {
 
   return (
     <div className="App">
-      <AutContext.Provider value={{ login, cartItems, updateCartItems }}>
+      <AutContext.Provider value={{ login, cartItems, updateCartItems, loginEmail, loginData}}>
         <Header updateLogin={updateLogin} />
         <Routes>
           <Route path='/' element={<Inicio />} />

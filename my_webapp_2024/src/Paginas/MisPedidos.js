@@ -28,8 +28,7 @@ const MisPedidos = () => {
     };
 
     const handleDeletePedido = () => {
-        // Aquí puedes implementar la lógica para eliminar el pedido
-        // Por ejemplo, puedes hacer una solicitud a tu servidor para eliminar el pedido de la base de datos
+        // Aquí implementar la lógica para eliminar el pedido
 
         // Después de eliminar el pedido, cierra el modal
         handleCloseModal();
@@ -37,20 +36,60 @@ const MisPedidos = () => {
 
     /* Pedir JSON de la lista de productos segun el usuario */
     const pedidos = [
-        { id: 1, producto: 'Producto 1', cantidad: 3, precioUnitario: 10 },
-        { id: 2, producto: 'Producto 2', cantidad: 2, precioUnitario: 15 },
-        { id: 3, producto: 'Producto 3', cantidad: 1, precioUnitario: 20 },
-        { id: 1, producto: 'Producto 1', cantidad: 3, precioUnitario: 10 },
-        { id: 2, producto: 'Producto 2', cantidad: 2, precioUnitario: 15 },
-        { id: 3, producto: 'Producto 3', cantidad: 1, precioUnitario: 20 },
-        { id: 1, producto: 'Producto 1', cantidad: 3, precioUnitario: 10 },
-        { id: 2, producto: 'Producto 2', cantidad: 2, precioUnitario: 15 },
-        { id: 3, producto: 'Producto 3', cantidad: 1, precioUnitario: 20 },
-        { id: 1, producto: 'Producto 1', cantidad: 3, precioUnitario: 10 },
-        { id: 2, producto: 'Producto 2', cantidad: 2, precioUnitario: 15 },
-        { id: 3, producto: 'Producto 3', cantidad: 1, precioUnitario: 20 },
-        { id: 1, producto: 'Producto 1', cantidad: 3, precioUnitario: 10 },
-        { id: 3, producto: 'Producto 3', cantidad: 1, precioUnitario: 20 },
+        {
+            id_pedido: 0,
+            ListaProductos: [
+                {
+                    id_bon: 0,
+                    cantidad: 2,
+                    name: "Carmona microphylla",
+                    price: 24.5
+                },
+                {
+                    id_bon: 1,
+                    cantidad: 1,
+                    name: "Ficus retusa",
+                    price: 24.5
+                }
+            ],
+            Total: 73.5
+        },
+        {
+            id_pedido: 1,
+            ListaProductos: [
+                {
+                    id_bon: 0,
+                    cantidad: 2,
+                    name: "Carmona microphylla",
+                    price: 24.5
+                },
+                {
+                    id_bon: 1,
+                    cantidad: 1,
+                    name: "Ficus retusa",
+                    price: 24.5
+                }
+            ],
+            Total: 73.5
+        },
+        {
+            id_pedido: 2,
+            ListaProductos: [
+                {
+                    id_bon: 0,
+                    cantidad: 2,
+                    name: "Carmona microphylla",
+                    price: 24.5
+                },
+                {
+                    id_bon: 1,
+                    cantidad: 1,
+                    name: "Ficus retusa",
+                    price: 24.5
+                }
+            ],
+            Total: 73.5
+        }
     ];
 
     return (
@@ -61,22 +100,39 @@ const MisPedidos = () => {
                     <ListGroup>
                         <ListGroup.Item className='custom-Item-fila0'>
                             <Row>
-                                <Col>ID</Col>
-                                <Col>Producto</Col>
-                                <Col>Cantidad</Col>
-                                <Col>Precio Unitario</Col>
+                                <Col>ID Pedido</Col>
+                                <Col>Detalles Pedido</Col>
                                 <Col>Total</Col>
+                            </Row>
+                        </ListGroup.Item>
+                        <ListGroup.Item className='custom-Item-fila0-1'>
+                            <Row>
+                                <Col></Col>
+                                <Col>
+                                    <Row  className='custom-Item-fila0-1-row'>
+                                        <Col>Nombre</Col>
+                                        <Col>Cantidad</Col>
+                                        <Col>Precio</Col>
+                                    </Row>
+                                </Col>
+                                <Col></Col>
                             </Row>
                         </ListGroup.Item>
                         <div className="scrollable-list">
                             {pedidos.map((pedido, index) => (
                                 <ListGroup.Item key={index} action className='custom-Item' onClick={() => handleOpenModal(pedido)}>
                                     <Row className='custom-rows'>
-                                        <Col>{pedido.id}</Col>
-                                        <Col>{pedido.producto}</Col>
-                                        <Col>{pedido.cantidad}</Col>
-                                        <Col>{pedido.precioUnitario}</Col>
-                                        <Col>{pedido.cantidad * pedido.precioUnitario}</Col>
+                                        <Col>{pedido.id_pedido}</Col>
+                                        <Col>
+                                            {pedido.ListaProductos.map((producto, i) => (
+                                                <Row key={i}>
+                                                    <Col>{producto.name}</Col>
+                                                    <Col>{producto.cantidad}</Col>
+                                                    <Col>{producto.price}</Col>
+                                                </Row>
+                                            ))}
+                                        </Col>
+                                        <Col>{pedido.Total}</Col>
                                     </Row>
                                 </ListGroup.Item>
                             ))}
@@ -89,11 +145,17 @@ const MisPedidos = () => {
                     <Modal.Title>Detalles del Pedido</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <p>ID: {selectedPedido && selectedPedido.id}</p>
-                    <p>Producto: {selectedPedido && selectedPedido.producto}</p>
-                    <p>Cantidad: {selectedPedido && selectedPedido.cantidad}</p>
-                    <p>Precio Unitario: {selectedPedido && selectedPedido.precioUnitario}</p>
-                    <p>Total: {selectedPedido && selectedPedido.cantidad * selectedPedido.precioUnitario}</p>
+                    <p>ID: {selectedPedido && selectedPedido.id_pedido}</p>
+                    <p>Detalle del Pedido:</p>
+                    <ul>
+                        {selectedPedido &&
+                            selectedPedido.ListaProductos.map((producto, index) => (
+                                <li key={index}>
+                                    {producto.name} - Cantidad: {producto.cantidad} - Precio Unitario: {producto.price}
+                                </li>
+                            ))}
+                    </ul>
+                    <p>Total: {selectedPedido && selectedPedido.Total}</p>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="outline-danger" onClick={() => handleDeleteConfirmation(selectedPedido)}>
@@ -109,9 +171,7 @@ const MisPedidos = () => {
                 <Modal.Header closeButton>
                     <Modal.Title>Confirmación</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>
-                    ¿Estás seguro de que deseas eliminar este pedido?
-                </Modal.Body>
+                <Modal.Body>¿Estás seguro de que deseas eliminar este pedido?</Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={() => setShowConfirmation(false)}>
                         Cancelar
@@ -122,6 +182,7 @@ const MisPedidos = () => {
                 </Modal.Footer>
             </Modal>
         </div>
+
     );
 }
 

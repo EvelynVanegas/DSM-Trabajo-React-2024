@@ -1,9 +1,11 @@
 import React from "react";
 
 const AutContext = React.createContext({
-    login: true,
+    login: false,
     cartItems: [],
-    updateCartItems: () => {}
+    updateCartItems: () => { },
+    loginEmail: null,
+    updateLoginEmail: () => { }
 });
 
 export default AutContext;

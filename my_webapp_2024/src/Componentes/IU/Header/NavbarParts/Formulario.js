@@ -113,16 +113,16 @@ function Formulario() {
         <Form.Label>Dirección</Form.Label>
         <Row>
           <Col>
-            <Form.Control placeholder="Calle" />
+            <Form.Control placeholder="Calle" type="string" name="street" />
           </Col>
           <Col>
-            <Form.Control placeholder="Portal" />
+            <Form.Control placeholder="Portal" type="number" name="portal" />
           </Col>
           <Col>
-            <Form.Control placeholder="Piso" />
+            <Form.Control placeholder="Piso" type="string" name="floor" />
           </Col>
           <Col>
-            <Form.Control placeholder="Puerta" />
+            <Form.Control placeholder="Puerta" type="string" name="door" />
           </Col>
         </Row>
       </Form.Group>

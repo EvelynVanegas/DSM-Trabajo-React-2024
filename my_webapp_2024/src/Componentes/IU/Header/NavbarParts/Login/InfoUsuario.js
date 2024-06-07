@@ -5,11 +5,11 @@ function InfoUsuario(props) {
 
     /* Obtener JSON con la información del usuario */
     const user = {
-        name: "Menganito"
+        name: "Usuario"
     }
 
     const logoutHandler = () => {
-        props.updateLogin(false, {});
+        props.updateLogin(false, {}, null);
     }
 
     return (

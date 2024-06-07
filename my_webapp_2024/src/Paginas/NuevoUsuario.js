@@ -1,5 +1,5 @@
 import './NuevoUsuario.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
@@ -10,8 +10,8 @@ import axios from 'axios';
 
 const NuevoUsuario = (props) => {
 
-    const [provinciaSeleccionada, setProvinciaSeleccionada] = useState('');
-    const [localidadSeleccionada, setLocalidadSeleccionada] = useState('');
+    const [provincia, setProvincia] = useState('');
+    const [localidad, setLocalidad] = useState('');
 
     // Lista de comunidades autónomas de España
     const comunidadesAutonomas = [
@@ -57,17 +57,18 @@ const NuevoUsuario = (props) => {
 
 
     const handleProvinciaChange = (event) => {
-        const provincia = event.target.value;
-        setProvinciaSeleccionada(provincia);
-        setLocalidadSeleccionada(''); // Reiniciar la localidad seleccionada al cambiar la provincia
+        const provincia_a = event.target.value;
+        setProvincia(provincia_a);
+        setLocalidad(''); // Reiniciar la localidad seleccionada al cambiar la provincia
     };
 
 
     /* Variables del Form */
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
     const [name, setName] = useState('');
     const [lastName, setLastName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
     const [calle, setCalle] = useState('');
     const [portal, setPortal] = useState('');
     const [piso, setPiso] = useState('');
@@ -95,6 +96,10 @@ const NuevoUsuario = (props) => {
             })
     };
 
+    useEffect(() => {
+        console.log('Yo que se');
+    });
+
     return (
         <div className='container-registration'>
             <Form className='form-registration' onSubmit={submitHandler}>
@@ -102,12 +107,12 @@ const NuevoUsuario = (props) => {
                 <Row className="mb-3">
                     <Form.Group as={Col} controlId="formGridName" className="me-5">
                         <Form.Label>Nombre</Form.Label>
-                        <Form.Control type="name" placeholder="Nombre" value={name} onChange={(event) => setName(event.target.value)} />
+                        <Form.Control type="text" placeholder="Nombre" value={name} onChange={(event) => setName(event.target.value)} />
                     </Form.Group>
 
                     <Form.Group as={Col} controlId="formGridApellidos">
                         <Form.Label>Apellidos</Form.Label>
-                        <Form.Control type="last-name" placeholder="Apellidos" value={lastName} onChange={(event) => setLastName(event.target.value)} />
+                        <Form.Control type="text" placeholder="Apellidos" value={lastName} onChange={(event) => setLastName(event.target.value)} />
                     </Form.Group>
                 </Row>
 
@@ -126,7 +131,7 @@ const NuevoUsuario = (props) => {
                 <Row className="mb-3">
                     <Form.Group as={Col} controlId="formGridProvincia" className="me-5">
                         <Form.Label>Provincia</Form.Label>
-                        <Form.Select value={provinciaSeleccionada} onChange={handleProvinciaChange}>
+                        <Form.Select value={provincia} onChange={handleProvinciaChange}>
                             <option value="">Elegir...</option>
                             {comunidadesAutonomas.map((comunidadAutonoma, index) => (
                                 <option key={index}>{comunidadAutonoma}</option>
@@ -136,9 +141,9 @@ const NuevoUsuario = (props) => {
 
                     <Form.Group as={Col} controlId="formGridLocalidad">
                         <Form.Label>Localidad</Form.Label>
-                        <Form.Select value={localidadSeleccionada} onChange={(e) => setLocalidadSeleccionada(e.target.value)}>
+                        <Form.Select value={localidad} onChange={(e) => setLocalidad(e.target.value)}>
                             <option value="">Elegir...</option>
-                            {localidadesPorProvincia[provinciaSeleccionada]?.map((localidad, index) => (
+                            {localidadesPorProvincia[provincia]?.map((localidad, index) => (
                                 <option key={index}>{localidad}</option>
                             ))}
                         </Form.Select>
@@ -149,16 +154,16 @@ const NuevoUsuario = (props) => {
                     <Form.Label>Dirección</Form.Label>
                     <Row>
                         <Col>
-                            <Form.Control placeholder="Calle" type='calle' value={calle} onChange={(event) => setCalle(event.target.value)} />
+                            <Form.Control placeholder="Calle" type='text' value={calle} onChange={(event) => setCalle(event.target.value)} />
                         </Col>
                         <Col>
-                            <Form.Control placeholder="Portal" type='portal' value={portal} onChange={(event) => setPortal(event.target.value)} />
+                            <Form.Control placeholder="Portal" type='text' value={portal} onChange={(event) => setPortal(event.target.value)} />
                         </Col>
                         <Col>
-                            <Form.Control placeholder="Piso" type='piso' value={piso} onChange={(event) => setPiso(event.target.value)} />
+                            <Form.Control placeholder="Piso" type='text' value={piso} onChange={(event) => setPiso(event.target.value)} />
                         </Col>
                         <Col>
-                            <Form.Control placeholder="Puerta" type='puerta' value={puerta} onChange={(event) => setPuerta(event.target.value)} />
+                            <Form.Control placeholder="Puerta" type='text' value={puerta} onChange={(event) => setPuerta(event.target.value)} />
                         </Col>
                     </Row>
                 </Form.Group>
@@ -167,6 +172,7 @@ const NuevoUsuario = (props) => {
                     Registrar
                 </Button>
             </Form>
+
         </div>
     )
 }
