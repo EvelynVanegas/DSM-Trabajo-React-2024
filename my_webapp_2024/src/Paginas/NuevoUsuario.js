@@ -1,5 +1,5 @@
 import './NuevoUsuario.css';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
@@ -73,6 +73,7 @@ const NuevoUsuario = (props) => {
     const [portal, setPortal] = useState('');
     const [piso, setPiso] = useState('');
     const [puerta, setPuerta] = useState('');
+    const [tlf, setTlf] = useState('');
 
     // Registrar en la BBDD nuevos usuarios
     const submitHandler = (event) => {
@@ -87,18 +88,34 @@ const NuevoUsuario = (props) => {
         // [API_KEY] -> por la key que nos da firebase AIzaSyBrMLxhi9iQ9qX8lSMqY2B6_EISzryOI9Q
         axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBrMLxhi9iQ9qX8lSMqY2B6_EISzryOI9Q', authData)
             .then((response) => {
-                console.log(response);
-                props.updateLogin(true, response.data);
-                alert('Se ha registrado correctamente');
-                window.location.href = '/';
-            }).catch((error) => {
-                alert('Usuario o contraseña incorrecto');
+                const idToken = response.data.idToken;
+                const userData = {
+                    name: name,
+                    lastName: lastName,
+                    email: email,
+                    calle: calle,
+                    portal: portal,
+                    piso: piso,
+                    puerta: puerta,
+                    provincia: provincia,
+                    localidad: localidad,
+                    tlf: tlf
+                };
+                axios.post('https://bonsem-dsm-default-rtdb.europe-west1.firebasedatabase.app/users.json?auth=' + idToken, userData)
+                    .then((response) => {
+                        console.log(response);
+                        props.updateLogin(true, response.data, email);
+                        alert('Se ha registrado correctamente');
+                        window.location.href = '/';
+                    })
+                    .catch((error) => {
+                        window.location.href = '/';
+                    });
             })
+            .catch((error) => {
+                window.location.href = '/';
+            });
     };
-
-    useEffect(() => {
-        console.log('Yo que se');
-    });
 
     return (
         <div className='container-registration'>
@@ -164,6 +181,12 @@ const NuevoUsuario = (props) => {
                         </Col>
                         <Col>
                             <Form.Control placeholder="Puerta" type='text' value={puerta} onChange={(event) => setPuerta(event.target.value)} />
+                        </Col>
+                    </Row>
+                    <Form.Label>Teléfono</Form.Label>
+                    <Row>
+                        <Col>
+                            <Form.Control placeholder="Telefono" type='text' value={tlf} onChange={(event) => setTlf(event.target.value)} />
                         </Col>
                     </Row>
                 </Form.Group>
