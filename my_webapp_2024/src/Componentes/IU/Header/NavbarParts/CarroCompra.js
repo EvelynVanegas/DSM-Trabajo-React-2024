@@ -41,13 +41,22 @@ function CarroCompra() {
 
             <Navbar.Offcanvas id="offcanvasNavbar" show={showCart} onHide={handleCloseCart} placement="end">
                 <Offcanvas.Header closeButton className='OffcanvasHeader'>
-                    <Offcanvas.Title>Carrito de la compra</Offcanvas.Title>
+                    <Offcanvas.Title style={{ fontSize: '2em', fontWeight: 'bold' }}>
+                        Carrito de la compra
+                    </Offcanvas.Title>
                 </Offcanvas.Header>
-                <ListItemCarro cartItems={cartItems} />
-                <div className="d-flex justify-content-center">
-                    <Button variant="primary" onClick={handleOrder} className='mb-2'>Realizar pedido</Button>
-                </div>
-
+                <Offcanvas.Body>
+                    {cartItems.length === 0 ? (
+                        <p style={{ fontSize: '1.5em', color: 'gray' , fontWeight: 'bold' }}>Vacío</p>
+                    ) : (
+                        <ListItemCarro cartItems={cartItems} />
+                    )}
+                    {cartItems.length > 0 && (
+                        <div className="d-flex justify-content-center">
+                            <Button variant="primary" onClick={handleOrder} className='mb-2'>Realizar pedido</Button>
+                        </div>
+                    )}
+                </Offcanvas.Body>
             </Navbar.Offcanvas>
 
             <Modal show={showConfirmation} onHide={handleCloseConfirmation}>
