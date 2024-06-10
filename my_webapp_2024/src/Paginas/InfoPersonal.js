@@ -30,7 +30,7 @@ const InfoPersonal = () => {
             .catch((error) => {
                 console.error('Error fetching user data:', error);
             });
-    }, [contextAut.loginEmail]);
+    }, [contextAut.loginEmail, contextAut.loginData.idToken]);
 
     if (!user) {
         return <div>Cargando...</div>;

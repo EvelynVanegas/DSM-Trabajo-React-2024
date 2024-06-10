@@ -26,9 +26,10 @@ function FormularioLogin(props) {
         // [API_KEY] -> por la key que nos da firebase AIzaSyBrMLxhi9iQ9qX8lSMqY2B6_EISzryOI9Q
         axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBrMLxhi9iQ9qX8lSMqY2B6_EISzryOI9Q', authData)
         .then((response)=>{
-            console.log(response);
+            //console.log(response);
             props.updateLogin(true, response.data, email);
             alert('Ha entrado correctamente');
+            window.location.href = '/';
         }).catch((error) => {
             alert('Usuario o contraseña incorrecto');
         })

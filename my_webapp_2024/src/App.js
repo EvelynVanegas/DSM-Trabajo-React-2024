@@ -29,7 +29,7 @@ function App() {
   useEffect(() => {
     if (localStorage.getItem('login') === 'true') {
       setLogin(true);
-      setLoginData({ idToke: localStorage.getItem('loginData') });
+      setLoginData({ idToken: localStorage.getItem('loginData') });
       setLoginEmail(localStorage.getItem('loginEmail'));
     }
     const storedCartItems = localStorage.getItem('cartItems');
