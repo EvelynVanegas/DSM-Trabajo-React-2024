@@ -15,21 +15,38 @@ import AutContext from '../../src/Almacen/AutContext';
 const MisPedidos = () => {
 
     const [pedidos, setPedidos] = useState([]);
-
     const [showModal, setShowModal] = useState(false);
     const [selectedPedido, setSelectedPedido] = useState(null);
     const [showConfirmation, setShowConfirmation] = useState(false);
+    const [userData, setUserData] = useState(null); // Nuevo estado para la información del usuario
 
     const { loginEmail, loginData } = useContext(AutContext);
 
-    const handleOpenModal = (pedido) => {
+    const handleOpenModal = async (pedido) => {
         setSelectedPedido(pedido);
         setShowModal(true);
+
+        // Obtener la información del usuario
+        try {
+            const response = await axios.get(`https://bonsem-dsm-default-rtdb.europe-west1.firebasedatabase.app/users.json?auth=${loginData.idToken}`);
+            const users = response.data;
+            const user = Object.values(users).find(user => user.email === pedido.email_user);
+
+            if (user) {
+                setUserData(user);
+            } else {
+                setUserData(null);
+            }
+        } catch (error) {
+            console.error("Error fetching user data: ", error);
+            setUserData(null);
+        }
     };
 
     const handleCloseModal = () => {
         setShowModal(false);
         setShowConfirmation(false);
+        setUserData(null); // Limpiar la información del usuario al cerrar el modal
     };
 
     const handleDeleteConfirmation = (pedido) => {
@@ -48,7 +65,6 @@ const MisPedidos = () => {
         handleCloseModal();
     };
 
-    /* Pedir JSON de la lista de productos segun el usuario */
     useEffect(() => {
         const fetchPedidos = async () => {
             try {
@@ -123,11 +139,11 @@ const MisPedidos = () => {
             </Card>
             <Modal show={showModal && !showConfirmation} onHide={handleCloseModal}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Detalles del Pedido</Modal.Title>
+                    <Modal.Title><h1>Detalles del Pedido</h1></Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <p>ID: {selectedPedido && selectedPedido.id_pedido}</p>
-                    <p>Detalle del Pedido:</p>
+                    <h3>Productos:</h3>
                     <ul>
                         {selectedPedido &&
                             selectedPedido.ListaProductos.map((producto, index) => (
@@ -137,6 +153,15 @@ const MisPedidos = () => {
                             ))}
                     </ul>
                     <p>Total: {selectedPedido && selectedPedido.Total}</p>
+                    <h3>Información solicitante</h3>
+                    {userData && (
+                        <>
+                            <p>Nombre: {userData.name}</p>
+                            <p>Email: {userData.email}</p>
+                            <p>Dirección: {userData.provincia}, {userData.localidad}.</p>
+                            <p>{userData.calle}, {userData.portal}. {userData.piso}º{userData.puerta}</p>
+                        </>
+                    )}
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="outline-danger" onClick={() => handleDeleteConfirmation(selectedPedido)}>
@@ -147,7 +172,6 @@ const MisPedidos = () => {
                     </Button>
                 </Modal.Footer>
             </Modal>
-            {/* Modal de confirmación para eliminar */}
             <Modal show={showConfirmation} onHide={() => setShowConfirmation(false)}>
                 <Modal.Header closeButton>
                     <Modal.Title>Confirmación</Modal.Title>
@@ -163,7 +187,6 @@ const MisPedidos = () => {
                 </Modal.Footer>
             </Modal>
         </div>
-
     );
 }
 
