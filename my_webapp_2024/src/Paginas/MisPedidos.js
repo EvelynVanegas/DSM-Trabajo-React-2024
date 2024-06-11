@@ -20,7 +20,7 @@ const MisPedidos = () => {
     const [selectedPedido, setSelectedPedido] = useState(null);
     const [showConfirmation, setShowConfirmation] = useState(false);
 
-    const { idToken, loginEmail } = useContext(AutContext);
+    const { loginEmail, loginData } = useContext(AutContext);
 
     const handleOpenModal = (pedido) => {
         setSelectedPedido(pedido);
@@ -29,7 +29,7 @@ const MisPedidos = () => {
 
     const handleCloseModal = () => {
         setShowModal(false);
-        setShowConfirmation(false); // Resetear el estado de confirmación
+        setShowConfirmation(false);
     };
 
     const handleDeleteConfirmation = (pedido) => {
@@ -39,7 +39,7 @@ const MisPedidos = () => {
 
     const handleDeletePedido = async () => {
         try {
-            await axios.delete(`https://bonsem-dsm-default-rtdb.europe-west1.firebasedatabase.app/pedidos/${selectedPedido.id_pedido}.json?auth=${idToken}`);
+            await axios.delete(`https://bonsem-dsm-default-rtdb.europe-west1.firebasedatabase.app/pedidos/${selectedPedido.id_pedido}.json?auth=${loginData.idToken}`);
             setPedidos(pedidos.filter(pedido => pedido.id_pedido !== selectedPedido.id_pedido));
         } catch (error) {
             console.error("Error deleting pedido: ", error);
@@ -52,8 +52,8 @@ const MisPedidos = () => {
     useEffect(() => {
         const fetchPedidos = async () => {
             try {
-                const response = await axios.get(`https://bonsem-dsm-default-rtdb.europe-west1.firebasedatabase.app/pedidos.json?auth=${idToken}`);
-                console.log(idToken);
+                const response = await axios.get(`https://bonsem-dsm-default-rtdb.europe-west1.firebasedatabase.app/pedidos.json?auth=${loginData.idToken}`);
+                console.log(loginData.idToken);
                 
                 if (response.data) {
                     const fetchedPedidos = Object.keys(response.data).map(key => ({
@@ -68,7 +68,7 @@ const MisPedidos = () => {
         };
 
         fetchPedidos();
-    }, [idToken, loginEmail]);
+    }, [loginEmail, loginData.idToken]);
 
     return (
         <div className="d-flex justify-content-center align-items-center mb-5">
