@@ -28,7 +28,7 @@ function CarroCompra() {
 
     const handleShowFormModal = () => {
         setShowFormModal(true);
-        setShowConfirmation(false); // Oculta el modal de confirmación al mostrar el formulario
+        setShowConfirmation(false);
     };
 
     const handleCloseFormModal = () => setShowFormModal(false);

@@ -53,7 +53,6 @@ const MisPedidos = () => {
         const fetchPedidos = async () => {
             try {
                 const response = await axios.get(`https://bonsem-dsm-default-rtdb.europe-west1.firebasedatabase.app/pedidos.json?auth=${loginData.idToken}`);
-                console.log(loginData.idToken);
                 
                 if (response.data) {
                     const fetchedPedidos = Object.keys(response.data).map(key => ({

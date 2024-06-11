@@ -10,7 +10,7 @@ import Row from 'react-bootstrap/Row';
 import AutContext from '../../../../Almacen/AutContext';
 
 function Formulario() {
-  const { loginEmail, cartItems, loginData } = useContext(AutContext);
+  const { loginEmail, cartItems, loginData , updateCartItems} = useContext(AutContext);
   const [userData, setUserData] = useState(null);
 
   const [provinciaSeleccionada, setProvinciaSeleccionada] = useState('');
@@ -109,6 +109,7 @@ function Formulario() {
       // Verificar si la solicitud fue exitosa
       if (response.status === 200) {
         alert('¡Gracias por tu pedido!');
+        updateCartItems([]);
         window.location.href = '/';
       } else {
         throw new Error('Error al enviar el pedido a Firebase');
